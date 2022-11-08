@@ -1,15 +1,19 @@
-describe("Teste do Objeto jasmine.anything", function() {
+describe("Teste do Objeto jasmine.objectContaining", function() {
 
-    var dobro;
+    var carro;
 
     beforeAll(function() {
-        dobro = jasmine.createSpy("dobro");
+        carro = {
+            'ano': 2017
+        };
     });
 
-    it("deve demostrar o uso do jasmine.anything", function() {
-        dobro(10);
+    it("deve demostrar o uso do jasmine.objectContaining", function() {
         
-        expect(dobro).toHaveBeenCalledWith(jasmine.anything());
+        expect(carro).toEqual(jasmine.objectContaining({'ano': 2017}));
+        expect(carro).not.toEqual(jasmine.objectContaining(
+            {'ano': 2016}
+        ));
     });
 
 });
