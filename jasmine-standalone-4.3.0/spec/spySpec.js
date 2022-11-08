@@ -1,22 +1,17 @@
-describe("Teste do Objeto jasmine.createSpyObj", function() {
+describe("Teste do Objeto jasmine.any", function() {
 
-    var Calculadora;
-
+    var dobro;
 
     beforeAll(function() {
-        Calculadora = jasmine.createSpyObj("Calculadora",
-        ["somar", "subtrair"]);
+        dobro = jasmine.createSpy("dobro");
 
-        Calculadora.somar.and.returnValue(5);
     });
 
-    it("deve demostrar o uso do jasmine.createSpyObjs", function() {
+    it("deve demostrar o uso do jasmine.any", function() {
         
-        var retorno = Calculadora.somar(1, 2);
+        dobro(10);
 
-        expect(Calculadora.somar).toHaveBeenCalled();
-        expect(Calculadora.somar).toHaveBeenCalledWith(1, 2);
-        expect(retorno).toEqual(5);
+        expect(dobro).toHaveBeenCalledWith(jasmine.any(Number));
     });
 
 });
