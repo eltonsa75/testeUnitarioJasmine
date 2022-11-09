@@ -1,16 +1,18 @@
-describe("Teste do Objeto jasmine.arrayContaining", function() {
+describe("Teste do Objeto jasmine.stringMatching", function() {
 
-    var numeros;
+    var exibirTexto;
 
     beforeAll(function() {
-        numeros = [ 1, 2, 3, 4, 5];
+      exibirTexto = jasmine.createSpy("exibirTexto");
     });
 
-    it("deve demostrar o uso do jasmine.arrayContaining", function() {
-        
-       expect(numeros).toEqual(jasmine.arrayContaining([3]));
-       expect(numeros).toEqual(jasmine.arrayContaining([2, 4]));
-       expect(numeros).not.toEqual(jasmine.arrayContaining([6]));
+    it("deve demostrar o uso do jasmine.stringMatching", function() {
+        exibirTexto("Curso de Jasmine");
+
+        expect(exibirTexto).toHaveBeenCalledWith(jasmine.stringMatching("Jasmine"));
+        expect(exibirTexto).toHaveBeenCalledWith(jasmine.stringMatching(/jasmine/i));
+
+        expect("Curso de JavaScript").toEqual(jasmine.stringMatching("JavaScript"));
     });
 
 });
