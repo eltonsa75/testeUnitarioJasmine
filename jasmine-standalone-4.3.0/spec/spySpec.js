@@ -1,18 +1,34 @@
-describe("Teste do Objeto jasmine.stringMatching", function() {
+let meuMatcher = {
+    toBeValidEmail: function(util, customEqualityTesters) {
+        let emailRegex = /\S+@\S+\.\S+/;
+        return {
+            compare: function(actual, expected) {
+            let result = {};
+            if(expected === undefined) {
+                result.pass = emailRegex.test(actual);
+            } else {
+                result.pass = expected.test(expected);
+            }
+            if (result.pass) {
+                result.message = actual + " é um email válido";
+            } else {
+                result.message = actual + 
+                " não é um email válido";
+            }
+            return result;
+            }
+            }
+        }
+    };
 
-    var exibirTexto;
+describe("Teste do Objeto jasmine.addMatchers", function() {
 
-    beforeAll(function() {
-      exibirTexto = jasmine.createSpy("exibirTexto");
-    });
-
-    it("deve demostrar o uso do jasmine.stringMatching", function() {
-        exibirTexto("Curso de Jasmine");
-
-        expect(exibirTexto).toHaveBeenCalledWith(jasmine.stringMatching("Jasmine"));
-        expect(exibirTexto).toHaveBeenCalledWith(jasmine.stringMatching(/jasmine/i));
-
-        expect("Curso de JavaScript").toEqual(jasmine.stringMatching("JavaScript"));
-    });
+    beforeEach(function() {
+        jasmine.addMatchers(meuMatcher);
+    })
+    it("deve verificar se um email é válido", function() {
+        expect("email@dominio.com").toBeValidEmail();
+        expect("email").not.toBeValidEmail();
+    })
 
 });
